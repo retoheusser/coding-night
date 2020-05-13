@@ -71,8 +71,8 @@
 			<span>({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
 		</div>
 	{/each}
-	<input type="text" bind:value={sender}>
-	<input type="text" bind:value={newMessage} on:keypress={(keypress)}>
+	<input type="text" maxlength="20" bind:value={sender}>
+	<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
 	<button on:click={() => sendMessage()}>Send</button>
 </div>
 
