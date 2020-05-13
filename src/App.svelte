@@ -45,6 +45,7 @@
 
 </script>
 <div>
+<h1>Hueresohn Chat</h1>
 	{#each messages as message}
 		<div>
 			<span class:vip={vipNames.includes(message.sender)}>{message.sender}: </span>
