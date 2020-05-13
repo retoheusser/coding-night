@@ -28,17 +28,13 @@
 	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]
 
 	function sendMessage() {
-		getIpAddress().then(ipObject => {
-			const newMessageRef = database.ref('chat/').push()
-			newMessageRef.set({
-				message: newMessage,
-				sender,
-				timestamp: (new Date()).toISOString(),
-				ip: ipObject.query,
-				city: ipObject.city
-			})
-			newMessage=""
+		const newMessageRef = database.ref('chat/').push()
+		newMessageRef.set({
+			message: newMessage,
+			sender,
+			timestamp: (new Date()).toISOString()
 		})
+		newMessage=""
 	}
 
 	function keypress(event) {
@@ -47,22 +43,13 @@
 		}
 	}
 
-	function getIpAddress() {
-		return fetch("http://ip-api.com/json").then(resp => {
-			if (resp.status == 200) {
-				return resp.json()
-			} else {
-				throw "shit"
-			}
-		})
-	}
 </script>
 <div>
 	{#each messages as message}
 		<div>
 			<span class:vip={vipNames.includes(message.sender)}>{message.sender}: </span>
 			<span>{message.message} </span>
-			<span>({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
+			<span>({new Date(message.timestamp).toLocaleTimeString()})</span>
 		</div>
 	{/each}
 	<input type="text" bind:value={sender}>
