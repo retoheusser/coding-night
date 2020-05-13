@@ -13,8 +13,12 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-var randomUserId = Math.round(Math.random() * 100)
-var database = firebase.database()
-database.ref('users/' + randomUserId).set({
-    username: "Michi" + randomUserId
-});
+function addRandomUser() {
+    firstname = document.getElementById("name-input").value
+    var randomUserId = Math.round(Math.random() * 100)
+    var database = firebase.database()
+    database.ref('users/' + randomUserId).set({
+        username: firstname + randomUserId,
+        firstname
+    });
+}
