@@ -19,25 +19,34 @@
 	const database = firebase.database()
 	const chatRef = database.ref("chat/")
 	chatRef.on("value", snapshot => {
-		messages = Object.values(snapshot.val())
+		messages = Object.values(snapshot.val() || {})
 	})
 
 	let newMessage = ""
+	let sender = "Anonymous"
 	let messages = []
 
 	function sendMessage() {
 		const newMessageRef = database.ref('chat/').push()
 		newMessageRef.set({
-			message: newMessage
+			message: newMessage,
+			sender,
+			timestamp: (new Date()).toISOString()
 		})
 		newMessage=""
+	}
+
+	function keypress(event) {
+		if (event.key == "Enter") {
+			sendMessage()
+		}
 	}
 </script>
 <div>
 	{#each messages as message}
-		<div>{message.message}</div>
+		<div>{message.sender}: {message.message} ({new Date(message.timestamp).toLocaleTimeString()})</div>
 	{/each}
-	<input type="text" bind:value={newMessage}>
+	<input type="text" bind:value={sender}>
+	<input type="text" bind:value={newMessage} on:keypress={(keypress)}>
 	<button on:click={() => sendMessage()}>Send</button>
-	
 </div>
