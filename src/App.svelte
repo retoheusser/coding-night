@@ -17,24 +17,27 @@
 	firebase.initializeApp(firebaseConfig);
 
 	const database = firebase.database()
-	const usersRef = database.ref("users/")
-	usersRef.on("value", snapshot => {
-		console.log(snapshot.val())
+	const chatRef = database.ref("chat/")
+	chatRef.on("value", snapshot => {
+		messages = Object.values(snapshot.val())
 	})
 
-	let firstname = ""
+	let newMessage = ""
+	let messages = []
 
-	function addRandomUser() {
-		var randomUserId = Math.round(Math.random() * 100)
-		database.ref('users/' + randomUserId).set({
-			username: firstname + randomUserId,
-			firstname
-		}).then(() => {
-			firstname = ""
-		});
+	function sendMessage() {
+		const newMessageRef = database.ref('chat/').push()
+		newMessageRef.set({
+			message: newMessage
+		})
+		newMessage=""
 	}
 </script>
 <div>
-	<input type="text" bind:value={firstname}>
-	<button on:click={() => addRandomUser()}>Add random user</button>
+	{#each messages as message}
+		<div>{message.message}</div>
+	{/each}
+	<input type="text" bind:value={newMessage}>
+	<button on:click={() => sendMessage()}>Send</button>
+	
 </div>
