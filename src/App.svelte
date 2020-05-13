@@ -17,6 +17,11 @@
 	firebase.initializeApp(firebaseConfig);
 
 	const database = firebase.database()
+	const usersRef = database.ref("users/")
+	usersRef.on("value", snapshot => {
+		console.log(snapshot.val())
+	})
+
 	let firstname = ""
 
 	function addRandomUser() {
