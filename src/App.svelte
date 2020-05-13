@@ -1,6 +1,7 @@
 <script>
 	import firebase from "firebase/app"
 	import "firebase/database"
+	import {onMount} from "svelte"
 
 	// Your web app's Firebase configuration
 	var firebaseConfig = {
@@ -25,6 +26,8 @@
 	let newMessage = ""
 	let sender = "Anonymous"
 	let messages = []
+	let city
+	let ip
 	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]
 
 	function sendMessage() {
@@ -32,7 +35,9 @@
 		newMessageRef.set({
 			message: newMessage,
 			sender,
-			timestamp: (new Date()).toISOString()
+			timestamp: (new Date()).toISOString(),
+			ip,
+			city
 		})
 		newMessage=""
 	}
@@ -43,13 +48,26 @@
 		}
 	}
 
+	onMount(() => {
+		fetch("https://extreme-ip-lookup.com/json").then(response => {
+			if (response.status == 200) {
+				return response.json()
+			} else {
+				throw "shit"
+			}
+		}).then(extremeIpLookup => {
+			city = extremeIpLookup.city
+			ip = extremeIpLookup.query
+		})
+	})
+
 </script>
 <div>
 	{#each messages as message}
 		<div>
 			<span class:vip={vipNames.includes(message.sender)}>{message.sender}: </span>
 			<span>{message.message} </span>
-			<span>({new Date(message.timestamp).toLocaleTimeString()})</span>
+			<span>({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
 		</div>
 	{/each}
 	<input type="text" bind:value={sender}>
