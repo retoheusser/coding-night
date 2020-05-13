@@ -25,15 +25,20 @@
 	let newMessage = ""
 	let sender = "Anonymous"
 	let messages = []
+	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]
 
 	function sendMessage() {
-		const newMessageRef = database.ref('chat/').push()
-		newMessageRef.set({
-			message: newMessage,
-			sender,
-			timestamp: (new Date()).toISOString()
+		getIpAddress().then(ipObject => {
+			const newMessageRef = database.ref('chat/').push()
+			newMessageRef.set({
+				message: newMessage,
+				sender,
+				timestamp: (new Date()).toISOString(),
+				ip: ipObject.query,
+				city: ipObject.city
+			})
+			newMessage=""
 		})
-		newMessage=""
 	}
 
 	function keypress(event) {
@@ -41,12 +46,34 @@
 			sendMessage()
 		}
 	}
+
+	function getIpAddress() {
+		return fetch("http://ip-api.com/json").then(resp => {
+			if (resp.status == 200) {
+				return resp.json()
+			} else {
+				throw "shit"
+			}
+		})
+	}
 </script>
 <div>
 	{#each messages as message}
-		<div>{message.sender}: {message.message} ({new Date(message.timestamp).toLocaleTimeString()})</div>
+		<div>
+			<span class:vip={vipNames.includes(message.sender)}>{message.sender}: </span>
+			<span>{message.message} </span>
+			<span>({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
+		</div>
 	{/each}
 	<input type="text" bind:value={sender}>
 	<input type="text" bind:value={newMessage} on:keypress={(keypress)}>
 	<button on:click={() => sendMessage()}>Send</button>
 </div>
+
+<style>
+.vip {
+	background-color: red;
+	font-weight: bold;
+	color: white;
+}
+</style>
