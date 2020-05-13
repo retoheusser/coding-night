@@ -31,6 +31,9 @@
 	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]
 
 	function sendMessage() {
+		if (!newMessage || !sender) {
+			return
+		}
 		const newMessageRef = database.ref('chat/').push()
 		newMessageRef.set({
 			message: newMessage,
