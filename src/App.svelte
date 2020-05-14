@@ -65,45 +65,72 @@
 	})
 
 </script>
-<div>
+<div id="chatwindow">
 <h1 id="grad1">Hueresohn Chat</h1>
 	{#each messages as message}
-		<div>
+		<div id="chatcontent">
 			<span class:vip={vipNames.includes(message.sender)}>{message.sender}: </span>
 			<span>{message.message} </span>
-			<span>({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
+			<span id="info">({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
 		</div>
 	{/each}
+	<div id="chatsend">
 	<input type="text" maxlength="20" bind:value={sender}>
 	<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
 	<button on:click={() => sendMessage()}>Send</button>
+	</div>
 </div>
 
 <style>
+
 .vip {
 	background-color: red;
 	font-weight: bold;
 	color: white;
 }
 
-input[type=text]:focus {
-  border: 3px solid #555;
+#info {
+	font-size: 8px;
+	font-weight: lighter;
+	color: grey;
 }
 
-div {
-  border-radius: 2px;
-  background-color: #f2f2f2;
+input[type=text]:focus {
+  border: 3px solid #555;
+  align-self: center
+}
+
+#chatwindow {
+	margin: auto;
+  width: 90%;
   padding: 10px;
+  border-radius: 2px;
+  background-color: #f2f2f2
+}
+
+#chatcontent {
+	margin: auto;
+  width: 90%;
+  padding: 10px;
+  border-radius: 2px;
+  background-color: #f2f2f2
+}
+  #chatsend {
+	margin: auto;
+  width: 90%;
+  padding: 10px;
+  border-radius: 2px;
+  background-color: #f2f2f2
 }
 
 #grad1 {
-    background: red;
-    background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);
-    background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
-    background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
-    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+    background: -webkit-linear-gradient(left, black ,grey);
+    background: -o-linear-gradient(right, black ,grey);
+    background: -moz-linear-gradient(right,black ,grey);
+    background: linear-gradient(to right, black ,grey);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 5vw;
+	text-align: center
 }
 </style>
