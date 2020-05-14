@@ -66,7 +66,7 @@
 
 </script>
 <div>
-<h1>Hueresohn Chat</h1>
+<h1 id="grad1">Hueresohn Chat</h1>
 	{#each messages as message}
 		<div>
 			<span class:vip={vipNames.includes(message.sender)}>{message.sender}: </span>
@@ -91,8 +91,19 @@ input[type=text]:focus {
 }
 
 div {
-  border-radius: 5px;
+  border-radius: 2px;
   background-color: #f2f2f2;
-  padding: 20px;
+  padding: 10px;
+}
+
+#grad1 {
+    background: red;
+    background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);
+    background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 5vw;
 }
 </style>
