@@ -65,7 +65,10 @@
 	})
 
 </script>
+
+
 <div id="chatwindow">
+
 <h1 id="grad1">Hueresohn Chat</h1>
 	{#each messages as message}
 		<div id="chatcontent">
@@ -74,12 +77,15 @@
 			<span id="info">({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
 		</div>
 	{/each}
-</div>
-
-<div id="chatsend">
-	<input type="text" maxlength="20" bind:value={sender}>
-	<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
-	<button on:click={() => sendMessage()}>Send</button>
+	<div id="divider">
+		<br>
+	</div>
+	
+	<div id="chatsend">
+		<input type="text" maxlength="20" bind:value={sender}>
+		<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
+		<button on:click={() => sendMessage()}>Send</button>
+	</div>
 </div>
 
 
@@ -118,13 +124,23 @@ margin: auto;
   border-radius: 2px;
   background-color: #f2f2f2
 }
+
+#divider {
+margin: auto;
+  width: 90%;
+  padding: 4%;
+  border-radius: 2px;
+  background-color: #f2f2f2
+}
+
   #chatsend {
 margin: auto;
 width: 90%;
-padding: 10px;
+padding-top: 4%;
+padding-left: 10px;
 position: fixed;
-  bottom: 0;
-  left: 10px
+bottom: 0;
+background-color: #f2f2f2
 }
 
 #grad1 {
