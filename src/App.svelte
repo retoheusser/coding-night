@@ -75,15 +75,11 @@
 		</div>
 	{/each}
 </div>
-<div>
-<n>
-</div>
-<div id="chatwindow">
-	<div id="chatsend">
-		<input type="text" maxlength="20" bind:value={sender}>
-		<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
-		<button on:click={() => sendMessage()}>Send</button>
-	</div>
+
+<div id="chatsend">
+	<input type="text" maxlength="20" bind:value={sender}>
+	<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
+	<button on:click={() => sendMessage()}>Send</button>
 </div>
 
 
@@ -116,7 +112,7 @@ input[type=text]:focus {
 }
 
 #chatcontent {
-	margin: auto;
+margin: auto;
   width: 90%;
   padding: 10px;
   border-radius: 2px;
@@ -124,10 +120,11 @@ input[type=text]:focus {
 }
   #chatsend {
 margin: auto;
-  border-radius: 2px;
-  background-color: #f2f2f2;
+width: 90%;
+padding: 10px;
 position: fixed;
   bottom: 0;
+  left: 10px
 }
 
 #grad1 {
