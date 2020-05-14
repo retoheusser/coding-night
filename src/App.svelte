@@ -74,11 +74,11 @@
 			<span id="info">({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
 		</div>
 	{/each}
-	<div id="chatsend">
+</div>
+<div id="chatsend">
 	<input type="text" maxlength="20" bind:value={sender}>
 	<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
 	<button on:click={() => sendMessage()}>Send</button>
-	</div>
 </div>
 
 <style>
@@ -120,7 +120,8 @@ input[type=text]:focus {
   width: 90%;
   padding: 10px;
   border-radius: 2px;
-  background-color: #f2f2f2
+  background-color: #f2f2f2;
+    bottom: 0px;
 }
 
 #grad1 {
