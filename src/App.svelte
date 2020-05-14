@@ -85,4 +85,14 @@
 	font-weight: bold;
 	color: white;
 }
+
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
 </style>
