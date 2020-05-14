@@ -110,6 +110,7 @@ input[type=text]:focus {
 	margin: auto;
   width: 90%;
   padding: 10px;
+  padding-bottom: 4%;
   border-radius: 2px;
   background-color: #f2f2f2
 }
@@ -123,13 +124,10 @@ input[type=text]:focus {
 }
   #chatsend {
 margin: auto;
-  width: 90%;
-  padding: 10px;
   border-radius: 2px;
   background-color: #f2f2f2;
 position: fixed;
   bottom: 0;
-  width: 90%;
 }
 
 #grad1 {
