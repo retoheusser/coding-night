@@ -24,15 +24,11 @@
 	})
 
 	let newMessage = ""
-	let sender = "Anonymous"
+	let sender = ""
 	let messages = []
 	let city
 	let ip
-	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]
-
-	function scrolldown() {
-		document.getElementById('chatwindow').scrollIntoView(false)
-	}	
+	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]	
 
 	function sendMessage() {
 		if (!newMessage || !sender) {
@@ -49,9 +45,31 @@
 		newMessage=""
 	}
 
+	function wait(ms){
+   		var start = new Date().getTime();
+   		var end = start;
+   		while(end < start + ms) {
+     	end = new Date().getTime();
+  }
+}
+
+	function scrolldown() {
+		document.getElementById('chatwindow').scrollIntoView(false)
+	}	
+
+	function scrollup() {
+		document.getElementById('chatwindow').scrollIntoView(true)
+	}	
+
+	function sendscroll() {
+		sendMessage();
+		scrolldown()
+		
+	}
+
 	function keypress(event) {
 		if (event.key == "Enter") {
-			sendMessage()
+			sendMessage();
 		}
 	}
 
@@ -68,10 +86,7 @@
 		})
 	})
 
-setInterval(scrolldown, 1000)
-
 </script>
-
 
 <div id="chatwindow">
 
@@ -87,9 +102,11 @@ setInterval(scrolldown, 1000)
 	<div id="divider"></div>
 	
 	<div id="chatsend">
-		<input type="text" maxlength="20" bind:value={sender}>
-		<input type="text" maxlength="161" bind:value={newMessage} on:keypress={(keypress)}>
-		<button on:click={() => sendMessage()}>Send</button>
+		<input type="text" maxlength="20" bind:value={sender} placeholder="Name">
+		<input type="text" maxlength="161" bind:value={newMessage} placeholder="Message" on:keypress={(keypress)}>
+		<button on:click={() => sendscroll()}>Send</button>
+		<button on:click={() => scrollup()}>Scroll Up</button>
+		<button on:click={() => scrolldown()}>Scroll Down</button>
 	</div>
 </div>
 
