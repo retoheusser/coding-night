@@ -30,6 +30,10 @@
 	let ip
 	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]
 
+	function scrolldown() {
+		document.getElementById('chatwindow').scrollIntoView(false)
+	}	
+
 	function sendMessage() {
 		if (!newMessage || !sender) {
 			return
@@ -64,6 +68,8 @@
 		})
 	})
 
+setInterval(scrolldown, 1000)
+
 </script>
 
 
@@ -77,9 +83,8 @@
 			<span id="info">({new Date(message.timestamp).toLocaleTimeString()}, {message.ip}, {message.city})</span>
 		</div>
 	{/each}
-	<div id="divider">
-		<br>
-	</div>
+
+	<div id="divider"></div>
 	
 	<div id="chatsend">
 		<input type="text" maxlength="20" bind:value={sender}>
@@ -109,7 +114,7 @@ input[type=text]:focus {
 }
 
 #chatwindow {
-	margin: auto;
+margin: auto;
   width: 90%;
   padding: 10px;
   padding-bottom: 4%;
@@ -126,18 +131,16 @@ margin: auto;
 }
 
 #divider {
-margin: auto;
-  width: 90%;
-  padding: 4%;
-  border-radius: 2px;
-  background-color: #f2f2f2
+	padding: 1%;
+	height: 5px;
 }
 
   #chatsend {
 margin: auto;
-width: 90%;
+width: 89%;
 padding-top: 4%;
-padding-left: 10px;
+padding-left: 0px;
+margin-right: 10px;
 position: fixed;
 bottom: 0;
 background-color: #f2f2f2
