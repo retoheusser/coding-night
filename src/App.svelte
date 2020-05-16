@@ -21,6 +21,11 @@
 	const chatRef = database.ref("chat/")
 	chatRef.on("value", snapshot => {
 		messages = Object.values(snapshot.val() || {})
+
+		// it makes sense to always scroll down when a new message has arrived
+		// timeout because the DOM needs to reflect the changes first, what will in turn increase the scroll height of the "chatwindow"
+		// and we want to scroll down just after that increase in scroll height has happened
+		setTimeout(() => scrolldown())
 	})
 
 	let newMessage = ""
@@ -55,14 +60,9 @@
 		chatwindow.scrollIntoView(true)
 	}	
 
-	function sendscroll() {
-		sendMessage();
-		scrolldown()
-	}
-
 	function keypress(event) {
 		if (event.key == "Enter") {
-			sendscroll();
+			sendMessage();
 		}
 	}
 
@@ -97,7 +97,7 @@
 	<div id="chatsend">
 		<input type="text" maxlength="20" bind:value={sender} placeholder="Name">
 		<input type="text" maxlength="161" bind:value={newMessage} placeholder="Message" on:keypress={(keypress)}>
-		<button on:click={() => sendscroll()}>Send</button>
+		<button on:click={() => sendMessage()}>Send</button>
 		<button on:click={() => scrollup()}>Scroll Up</button>
 		<button on:click={() => scrolldown()}>Scroll Down</button>
 	</div>
