@@ -28,7 +28,9 @@
 	let messages = []
 	let city
 	let ip
-	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]	
+	const vipNames = ["Cyrill", "Reto", "Martin", "Kevin"]
+
+	let chatwindow
 
 	function sendMessage() {
 		if (!newMessage || !sender) {
@@ -45,31 +47,22 @@
 		newMessage=""
 	}
 
-	function wait(ms){
-   		var start = new Date().getTime();
-   		var end = start;
-   		while(end < start + ms) {
-     	end = new Date().getTime();
-  }
-}
-
 	function scrolldown() {
-		document.getElementById('chatwindow').scrollIntoView(false)
+		chatwindow.scrollIntoView(false)
 	}	
 
 	function scrollup() {
-		document.getElementById('chatwindow').scrollIntoView(true)
+		chatwindow.scrollIntoView(true)
 	}	
 
 	function sendscroll() {
 		sendMessage();
 		scrolldown()
-		
 	}
 
 	function keypress(event) {
 		if (event.key == "Enter") {
-			sendMessage();
+			sendscroll();
 		}
 	}
 
@@ -88,9 +81,9 @@
 
 </script>
 
-<div id="chatwindow">
+<div id="chatwindow" bind:this={chatwindow}>
 
-<h1 id="grad1">Hueresohn Chat</h1>
+	<h1 id="grad1">Hueresohn Chat</h1>
 	{#each messages as message}
 		<div id="chatcontent">
 			<span class:vip={vipNames.includes(message.sender)}>{message.sender}: </span>
